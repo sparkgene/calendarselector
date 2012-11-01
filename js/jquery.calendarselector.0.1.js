@@ -12,6 +12,8 @@
 
 (function($){
 
+	var _selectedDay = [];
+
     $.fn.CalendarSelector = function(settings){
     	
     	// Define the defaults used for all new calendar selector instances
@@ -30,6 +32,8 @@
     		selectedDay:	[]
     	},settings);
 
+    	_selectedDay = settings.selectedDay;
+
     	var
     	_calendarOuterObj = $(this), 
     	_options = settings,
@@ -39,8 +43,7 @@
     	_thisGridEndDate = null,
     	_gridCellArray = new Array(),
     	_width = 0,
-    	_height = 0,
-    	_selected_dates = new Array();
+    	_height = 0;
     	
     	var
     	_SECONDS_IN_DAY = 86400000,
@@ -99,14 +102,11 @@
     	}
     	
     	function createGrid(targetDate){
-    		console.log(targetDate);
     		
     		$(".calendarselector_outer").remove();
     		
     		_thisMonthStartDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), 1);
     		_thisMonthEndDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
-    		console.log(_thisMonthStartDate);
-    		console.log(_thisMonthEndDate);
     		
 			var target_month = targetDate.getMonth();
     		_thisGridStartDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
@@ -219,7 +219,7 @@
 						else{
 							$(this).addClass(_CLASS_CALENDAR_DATE_CELL_ON);														
 						}
-						_options.selectedDay.push($(this).attr("data-date"));
+						_selectedDay.push($(this).attr("data-date"));
 					}
 				});
 
@@ -254,12 +254,12 @@
     	}
     	
     	function delArray(dt){
-    		if( _options.selectedDay.length <= 0 ) return;
+    		if( _selectedDay.length <= 0 ) return;
 
-    		var i, len = _options.selectedDay.length - 1;
+    		var i, len = _selectedDay.length - 1;
     		for(i = len; i >= 0; i--){
-    			if(_options.selectedDay[i] == dt){
-    				_options.selectedDay.splice(i,1);
+    			if(_selectedDay[i] == dt){
+    				_selectedDay.splice(i,1);
     			}
     		}    		
     	}
@@ -268,8 +268,10 @@
     	
     };
 
-	function getSelectedDate(){
-		return _options.selectedDay;
-	}
+    $.extend($.fn.CalendarSelector , {
+    	getSelectedDate : function(){
+    		return _selectedDay;
+    	}
+    });
 	
 })(jQuery);
