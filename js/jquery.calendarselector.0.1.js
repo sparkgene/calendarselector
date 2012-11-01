@@ -14,13 +14,20 @@
 
     $.fn.CalendarSelector = function(settings){
     	
+    	// Define the defaults used for all new calendar selector instances
     	settings = jQuery.extend({
-    		width: 			500,
-    		height:	 		400,
-    		defaultDate:	null,
+    		width: 			500, // width not including margins, borders or padding
+    		height:	 		400, // height not including margins, borders or padding
+    		defaultDate:	null, // Specify the date which want to show first. The date format "yyyy/mm/dd", "yyyy-mm-dd", "yyyymmdd" can be specified.
+
+    		// Weekday name used for header 
     		weekdayString:	new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"),
+    		// Month name used for header 
     		monthString:	new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
-    		startDay:		0
+    		// Most left column Day. 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday
+    		startDay:		0,
+    		// default highlighted date. The date format is only "yyyy-mm-dd"
+    		selectedDay:	[]
     	},settings);
 
     	var
@@ -32,7 +39,8 @@
     	_thisGridEndDate = null,
     	_gridCellArray = new Array(),
     	_width = 0,
-    	_height = 0;
+    	_height = 0,
+    	_selected_dates = new Array();
     	
     	var
     	_SECONDS_IN_DAY = 86400000,
@@ -46,8 +54,13 @@
     	_CLASS_CALENDAR_GRID = "grid_outer",
     	_CLASS_CALENDAR_WEEKDAY_CELL = "weekday_cell",
     	_CLASS_CALENDAR_DATE_CELL = "date_cell",
-    	_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH = "date_cell_target_month";
+    	_CLASS_CALENDAR_DATE_CELL_ON = "date_cell_on",
+    	_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH = "date_cell_target_month",
+    	_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH_ON = "date_cell_target_month_on";
     	
+		//===============
+		// Initialization
+		//===============
     	function _initialize() {
     		var dt;
     		if( _options.defaultDate == null ){
@@ -166,17 +179,49 @@
 				var cell = $("<div>")
 			      .addClass(_CLASS_CALENDAR_DATE_CELL)
 			      .width(_cellWidth)
-			      .height(_cellHeight);
+			      .height(_cellHeight)
+			      .attr("data-date", getFormatDate(wk_day));
 				
 				if( wk_day.getMonth() == target_month ){
 					date_str = wk_day.getDate();
 					cell.addClass(_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH);
+					if( _options.selectedDay.indexOf(getFormatDate(wk_day)) >= 0 ){
+						cell.attr("data-on", "1")
+							.addClass(_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH_ON);
+					}
 				}
 				else{
 					date_str = (wk_day.getMonth() + 1) + "/" + wk_day.getDate();
+					if( _options.selectedDay.indexOf(getFormatDate(wk_day)) >= 0 ){
+						cell.attr("data-on", "1")
+							.addClass(_CLASS_CALENDAR_DATE_CELL_ON);
+					}
 				}
 
 				cell.text(date_str).appendTo(cal_grid);
+				
+				cell.on("click", function(){
+					if($(this).attr("data-on") == "1" ){
+						$(this).removeAttr("data-on");
+						if( $(this).hasClass(_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH) ){
+							$(this).removeClass(_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH_ON);							
+						}
+						else{
+							$(this).removeClass(_CLASS_CALENDAR_DATE_CELL_ON);														
+						}
+						delArray($(this).attr("data-date"));
+					}
+					else{
+						$(this).attr("data-on", "1");
+						if( $(this).hasClass(_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH) ){
+							$(this).addClass(_CLASS_CALENDAR_DATE_CELL_TARGET_MONTH_ON);							
+						}
+						else{
+							$(this).addClass(_CLASS_CALENDAR_DATE_CELL_ON);														
+						}
+						_options.selectedDay.push($(this).attr("data-date"));
+					}
+				});
 
 				wk_day.setTime(wk_day.getTime() + _SECONDS_IN_DAY);
 			}
@@ -201,9 +246,30 @@
     		var dt = new Date(_thisMonthStartDate.getFullYear(), _thisMonthStartDate.getMonth() - 1, 1);
     		createGrid(dt);
     	}
+    	
+    	function getFormatDate(wk){
+    		var m = "00" + (wk.getMonth() + 1);
+    		var d = "00" + wk.getDate();
+    		return wk.getFullYear() + "-" + m.substr( m.length -2 , 2 ) + "-" + d.substr( d.length -2 , 2 );
+    	}
+    	
+    	function delArray(dt){
+    		if( _options.selectedDay.length <= 0 ) return;
 
+    		var i, len = _options.selectedDay.length - 1;
+    		for(i = len; i >= 0; i--){
+    			if(_options.selectedDay[i] == dt){
+    				_options.selectedDay.splice(i,1);
+    			}
+    		}    		
+    	}
+    	
     	_initialize(settings);
+    	
     };
 
+	function getSelectedDate(){
+		return _options.selectedDay;
+	}
 	
 })(jQuery);

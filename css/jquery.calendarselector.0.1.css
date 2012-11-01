@@ -58,7 +58,7 @@ div.calendarselector_outer .weekday_cell{
 div.calendarselector_outer .date_cell{
 	float:left;
 	border:1px solid #FFA500;
-	background-color:#FFE4B5;
+	background-color:#FFEFD5;
 	color:#A9A9A9;
 	margin:0px 1px 1px 0px;
 	text-align:center;
@@ -69,4 +69,12 @@ div.calendarselector_outer .date_cell_target_month{
 	background-color:#FFE4B5;
 	color:#808080;
 	font-size:1.0em;
+}
+
+div.calendarselector_outer .date_cell_on{
+	background-color:#FFD700;
+}
+
+div.calendarselector_outer .date_cell_target_month_on{
+	background-color:#FF8C00;
 }
