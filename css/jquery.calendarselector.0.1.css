@@ -1,0 +1,72 @@
+.float_clear{
+	clear:both;
+}
+
+div.calendarselector_outer {
+	border:1px solid #FF8C00;
+	margin:5px;
+	padding:0px;
+	font-family:Arial,Verdana,sans-serif;
+}
+
+div.calendarselector_outer .navigator{
+	background-color:#FFE4B5;
+	border-bottom:1px solid #FFA500;
+	margin-bottom:2px;
+}
+
+div.calendarselector_outer .navigator a.navi_btn_left{
+	float:left;
+	margin:2px 0px 0px 10px;
+	font-size:0.9em;
+	text-decoration: none;
+	width:40px;
+	text-align:center;
+}
+
+div.calendarselector_outer .navigator a.navi_btn_right{
+	float:left;
+	margin:2px 10px 0px 0px;
+	font-size:0.9em;
+	text-decoration: none;
+	width:40px;
+	text-align:center;
+}
+
+div.calendarselector_outer .navigator div.navi_title{
+	float:left;
+	margin-top:2px;
+	font-size:0.9em;
+	text-align:center;
+}
+
+div.calendarselector_outer .grid_outer{
+	margin-left:2px;
+	padding-left:1px;
+}
+
+div.calendarselector_outer .weekday_cell{
+	float:left;
+	border:1px solid #FFA500;
+	background-color:#FFE4B5;
+	margin:0px 1px 1px 0px;
+	padding:2px 0px 0px 0px;
+	text-align:center;
+	font-size:0.9em;
+}
+
+div.calendarselector_outer .date_cell{
+	float:left;
+	border:1px solid #FFA500;
+	background-color:#FFE4B5;
+	color:#A9A9A9;
+	margin:0px 1px 1px 0px;
+	text-align:center;
+	font-size:0.9em;
+}
+
+div.calendarselector_outer .date_cell_target_month{
+	background-color:#FFE4B5;
+	color:#808080;
+	font-size:1.0em;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="Sat, 31 Aug 2002 17:35:42 GMT">
+
+	<link href="css/jquery.calendarselector.0.1.css" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="js/jquery.calendarselector.0.1.js?ver=8"></script>
+
+	<script type="text/javascript">
+
+	$(function() {
+		$('#cal_area').CalendarSelector({
+			width : 500,
+			height : 400,
+			defaultDate : "2012/07/10",
+			startDay : 1
+		});
+	});
+	</script>
+
+</head>
+<body>
+
+	<div id="cal_area"></div>
+
+</body>
+</html>
