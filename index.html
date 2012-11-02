@@ -8,21 +8,27 @@
 	<link href="css/jquery.calendarselector.0.1.css" rel="stylesheet">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script src="js/jquery.calendarselector.0.1.js?ver=14"></script>
+	<script src="js/jquery.calendarselector.0.1.js?ver=1"></script>
 
 	<script type="text/javascript">
 
+	function dateClicked(dt, isOn){
+		console.log(dt + ":" + isOn);
+		
+	}
+
 	$(function() {
-		$('#cal_area').CalendarSelector({
+		var obj = $('#cal_area').CalendarSelector({
 			width : 500,
 			height : 400,
 			defaultDate : "2012/07/10",
 			startDay : 1,
-			selectedDay: ["2012-07-20", "2012-09-01"]
+			selectedDay: ["2012-07-20", "2012-09-01"],
+			dateClicked: dateClicked
 		});
 		
 		$("#dump").on("click",function(){
-			console.log($.fn.CalendarSelector.getSelectedDate());
+			console.log(obj.CalendarSelector.getSelectedDate());
 		});
 	});
 	</script>
@@ -32,6 +38,6 @@
 
 	<div id="cal_area"></div>
 
-<a href="#" id="dump">dump</a>
+	<a href="#" id="dump">dump</a>
 </body>
 </html>
