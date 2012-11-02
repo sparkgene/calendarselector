@@ -136,8 +136,8 @@
 	      .width(_outer_width)
 	      .height(_NAVIGATOR_HEIGHT);
 		
-		var navi_left = $("<a href='#'>").addClass(_CLASS_CALENDAR_NAVIBTN_LEFT).text("<<");
-		var navi_right = $("<a href='#'>").addClass(_CLASS_CALENDAR_NAVIBTN_RIGHT).text(">>");
+		var navi_left = $("<a href='javascript:void(0)'>").addClass(_CLASS_CALENDAR_NAVIBTN_LEFT).text("<<");
+		var navi_right = $("<a href='javascript:void(0)'>").addClass(_CLASS_CALENDAR_NAVIBTN_RIGHT).text(">>");
 		var navi_title = $("<div>")
 			.addClass(_CLASS_CALENDAR_NAVI_TITLE)
 			.text(_thisMonthStartDate.getFullYear() + "  " + _options.monthString[target_month])
