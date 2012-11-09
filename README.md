@@ -39,7 +39,7 @@ $(function() {
 ### Options
 
 | option name | default | description |
-|:-----------|:------------|:------------:|
+|:-----------|:------------|:------------|
 | width | 500 | width (not including margins, borders or padding) |
 | height | 400 | height not including margins, borders or padding |
 | defaultDate | null | Specify the date which want to show first. The date format "yyyy/mm/dd", "yyyy-mm-dd", "yyyymmdd" can be specified. |
