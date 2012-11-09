@@ -100,15 +100,15 @@
 		_thisMonthEndDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
 		
 		var target_month = targetDate.getMonth();
-		_thisGridStartDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-		_thisGridEndDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
-		if( targetDate.getDay() > _options.startDay ){
-			var days = targetDate.getDay() - _options.startDay;
-			_thisGridStartDate.setTime( targetDate.getTime() - (_SECONDS_IN_DAY * days) );
+		_thisGridStartDate = new Date(_thisMonthStartDate.getFullYear(), _thisMonthStartDate.getMonth(), _thisMonthStartDate.getDate());
+		_thisGridEndDate = new Date(_thisMonthEndDate.getFullYear(), _thisMonthEndDate.getMonth(), _thisMonthEndDate.getDate());
+		if( _thisMonthStartDate.getDay() > _options.startDay ){
+			var days = _thisMonthStartDate.getDay() - _options.startDay;
+			_thisGridStartDate.setTime( _thisMonthStartDate.getTime() - (_SECONDS_IN_DAY * days) );
 		}
-		else if( targetDate.getDay() < _options.startDay ){
-			var days = 7 - _options.startDay + targetDate.getDay();
-			_thisGridStartDate.setTime( targetDate.getTime() - (_SECONDS_IN_DAY * days) );
+		else if( _thisMonthStartDate.getDay() < _options.startDay ){
+			var days = 7 - _options.startDay + _thisMonthStartDate.getDay();
+			_thisGridStartDate.setTime( _thisMonthStartDate.getTime() - (_SECONDS_IN_DAY * days) );
 		}
 		
 		var endDay = _options.startDay - 1;

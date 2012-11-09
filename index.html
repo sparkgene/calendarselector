@@ -13,7 +13,12 @@
 	<script type="text/javascript">
 
 	function dateClicked(dt, isOn){
-		console.log(dt + ":" + isOn);
+		if( isOn ){
+			$('#selected_dates').append($('<li>').attr('data-selected-date', dt).text(dt));
+		}
+		else{
+			$($('li[data-selected-date=' + dt + ']')).remove();
+		}
 		
 	}
 
@@ -21,15 +26,8 @@
 		var obj = $('#cal_area').CalendarSelector({
 			width : 500,
 			height : 400,
-			defaultDate : "2012/07/10",
-			startDay : 1,
-			selectedDay: ["2012-07-20", "2012-09-01"],
 			dateClicked: dateClicked
-		});
-		
-		$("#dump").on("click",function(){
-			console.log(obj.CalendarSelector.getSelectedDate());
-		});
+		});		
 	});
 	</script>
 
@@ -38,6 +36,7 @@
 
 	<div id="cal_area"></div>
 
-	<a href="#" id="dump">dump</a>
+	<ul id="selected_dates">
+	</ul>
 </body>
 </html>
